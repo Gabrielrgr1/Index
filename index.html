@@ -25,8 +25,19 @@
 
             // Aqui você pode fazer a verificação dos dados (opcional)
 
-            // Após o login, redireciona para a Binomo
-            window.location.href = "https://www.binomo.com"; // Substitua pela URL correta
+            // Enviar uma requisição para a IA (no Flask) após o login
+            fetch('https://a849-34-125-225-244.ngrok-free.app/operacao') // Substitua pelo link do seu Flask
+                .then(response => response.json())
+                .then(data => {
+                    // Exibe o resultado da operação (se for "Comprar" ou "Vender")
+                    alert('Operação sugerida: ' + data.status + ' com probabilidade de ' + data.probabilidade);
+
+                    // Após o login, redireciona para a Binomo
+                    window.location.href = "https://www.binomo.com"; // Substitua pela URL correta
+                })
+                .catch(error => {
+                    console.error('Erro ao chamar a IA:', error);
+                });
         });
     </script>
 
