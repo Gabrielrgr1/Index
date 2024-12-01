@@ -12,10 +12,10 @@
     <form id="loginForm">
         <label for="username">Usuário:</label>
         <input type="text" id="username" name="username" required><br><br>
-        
+        
         <label for="password">Senha:</label>
         <input type="password" id="password" name="password" required><br><br>
-        
+        
         <button type="submit">Login</button>
     </form>
 
@@ -27,16 +27,16 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            // Aqui você vai fazer a validação com a Binomo (isso é um exemplo)
-            // Mas depois de validado, vamos seguir com o processo de IA.
-
             // Simulação de login (na prática, você deve integrar com a Binomo)
             const loginValidado = (username === "usuario_correto" && password === "senha_correta");
 
             if (loginValidado) {
                 alert("Login bem-sucedido na Binomo!");
-                // Agora você pode fazer a chamada para ativar a IA
-                // Fazendo uma requisição para o backend Flask para iniciar a IA
+
+                // Agora, redireciona para a Binomo, onde o login será realizado
+                window.location.href = "https://www.binomo.com"; // Redireciona para o login da Binomo
+
+                // Após redirecionar para a Binomo, a IA deve ser ativada (por exemplo, a partir do backend Flask)
                 fetch("https://a849-34-125-225-244.ngrok-free.app/validar_login", {
                     method: "POST",
                     headers: {
@@ -50,8 +50,8 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === "success") {
-                        // A IA pode ser ativada aqui
-                        window.location.href = "https://www.binomo.com"; // Direciona para a Binomo ou outra ação
+                        // Aqui você pode implementar ações adicionais para ativar a IA ou redirecionar para outra página
+                        console.log("IA ativada!");
                     } else {
                         alert("Erro no login. Tente novamente.");
                     }
@@ -60,6 +60,7 @@
                     console.error('Erro ao validar o login:', error);
                     alert('Ocorreu um erro. Tente novamente mais tarde.');
                 });
+
             } else {
                 alert("Erro no login. Tente novamente.");
             }
